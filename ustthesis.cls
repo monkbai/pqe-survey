@@ -704,7 +704,8 @@ scholarly research.}
     %   Add \textspace here to prevent problems when displaying
     %   a long title.
     \textspace
-    \addcontentsline{toc}{chapter}{Abstract}
+    % \addcontentsline{toc}{chapter}{Abstract}
+    \phantomsection\addcontentsline{toc}{chapter}{Abstract}
 %    \let\footnotesize\small % Local definitions to make \thanks produce
 %    \let\footnoterule\relax % \normalsize footnotes with no separating rule.
     \null
