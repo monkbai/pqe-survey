@@ -1,7 +1,43 @@
-1. disassemble
-2. IR lifting
-3. decompilation
-4. (?) advanced decompilation
-5. smart contract?
-6. what else?
-7. one page for your own (ongoing and published) work
+Chapter 1. Introduction
+
+Chapter 2. Background
+    brief introduction of the workflow of RE
+        1. disassemble
+        2. IR lifting
+        3. decompilation
+
+Chapter 3. Problems and Challenges
+    1. disassembly: symbolization, pros and cons of linear/recursive disassembly
+    2. lifting: varity of IR, llvm IR -> strong-type -> variable/type recovery
+    3. decompilation: high-level data/control recovery, control structure simplify
+
+Chapter 4. Existing Solutions
+    1. disassembly
+        1.1. superset disassembly/probabilistic disassembly, datalog disassembly
+        1.2. reassembleable disassembling
+        1.3. ramblr, retrowrite, egaltio
+        1.4. stochfuzz
+    2. lifter
+        2.1. mcsema/retdec, emulation-style/succinct style
+        2.2. dynamic lifter
+        2.3. lifter verification
+    3. decompilation
+        3.1. variable/type/data structure recovery: TODO
+        3.2. function signature recovery: TODO
+        3.3. to high-level source code, control flow translation/simplification
+
+Chapter 5. Advanced Decompilation
+    1. smart contract?
+        TODO
+    2. C++ decompilation
+        TODO
+    what else?
+
+Chapter 6. Future Directions
+    one page for your own (ongoing and published) work
+    1. Decompiler testing
+    2. IR lifter benchmarking
+    3. DNN decompiler
+    4. Optimizing IR for expressiveness
+
+Chapter 7. Conclusion
