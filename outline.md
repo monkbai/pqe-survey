@@ -1,12 +1,14 @@
 Chapter 1. Introduction
-
+    concept
+    applications
+    different type
 Chapter 2. Background
     brief introduction of the workflow of RE
         1. disassemble
         2. IR lifting
         3. decompilation
 
-Chapter 3. Problems and Challenges
+Chapter 3. Challenges
     1. disassembly: symbolization, pros and cons of linear/recursive disassembly
     2. lifting: varity of IR, llvm IR -> strong-type -> variable/type recovery
     3. decompilation: high-level data/control recovery, control structure simplify
@@ -29,7 +31,7 @@ Chapter 4. Existing Solutions
 Chapter 5. Advanced Decompilation
     1. smart contract?
         TODO
-    2. C++ decompilation
+    2. C++ decompilation (too much to explain) / decompilation with deep leaning
         TODO
     what else?
 

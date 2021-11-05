@@ -1,5 +1,44 @@
 \begin{abstract}
 
-Here should be the abstract.
+Software reverse engineering is a practice of understanding the intentions of
+software developers by analyzing and extracting design and implementation
+information from compiled software. It works as an automatic process of
+converting the incomprehensible binary files into human-readable high-level
+language. As the cornerstone of various cybersecurity tasks, software reverse
+engineering widely enables malware analysis, off-the-shelf software security
+hardening, cross-architecture code reuse, and vulnerability detection, in which
+cases the source code is usually unavailable.
+
+Because of its importance, software reverse engineering has evolved over the
+last few decades and has developed into a complete and systematic process.
+Typically, software reverse engineering on the x86 platform consists of three
+parts as disassembly, lifting, and decompilation. The disassembler translates
+hex values in executable into assembly instructions at the disassembly stage.
+Then the assembly instructions will be lifted into a variety of different
+Intermediate Representations (IRs) by the lifter at the lifting stage. Finally,
+at the decompilation stage, the decompiler converts IR into comprehensible
+high-level language.
+
+Accurate software reverse engineering is notoriously hard because the compiler
+discards unnecessary information during converting source code to machine code.
+Nowadays, there are lots of studies focused on recovering more information from
+binary executables. However, the perfect solution remains do not exist.
+Therefore, to help understand the challenges and the state-of-the-art (SOTA)
+methodology of software reverse engineering techniques, we conduct a thorough
+survey related to the existing researches and a detailed comparison among the
+different methods at different stages.
+
+According to the procedure of software reverse engineering, we first introduce
+the difficulties in three stages: disassembly, lifting, and decompilation.
+Afterward, we discuss recent works related to disassembly and reassembleable
+disassembly techniques and their pros and cons. Then we compare and divide
+existing lifting techniques into two categories of emulation-style and
+succinct-style. Moreover, we also show the advanced decompilation techniques
+for converting IR to pseudo C code. Finally, we discuss the emerging fields and
+application scenarios of decompilation technology. After a thorough survey of
+the existing literature, we also suggest several potential future research
+directions that could drive the development of software reverse engineering
+techniques. We believe our survey will benefit the entire reverse engineering
+community.
 
 \end{abstract}
