@@ -16,6 +16,54 @@
   escapeinside={<@}{@>}
 }
 
+\lstdefinelanguage{llvm}{
+  morecomment = [l]{;},
+  morestring=[b]",
+  sensitive = true,
+  classoffset=0,
+  morekeywords={
+    define, declare, global, constant,
+    internal, external, private,
+    linkonce, linkonce_odr, weak, weak_odr, appending,
+    common, extern_weak,
+    thread_local, dllimport, dllexport,
+    hidden, protected, default,
+    except, deplibs,
+    volatile, fastcc, coldcc, cc, ccc,
+    x86_stdcallcc, x86_fastcallcc,
+    ptx_kernel, ptx_device,
+    signext, zeroext, inreg, sret, nounwind, noreturn,
+    nocapture, byval, nest, readnone, readonly, noalias, uwtable,
+    inlinehint, noinline, alwaysinline, optsize, ssp, sspreq,
+    noredzone, noimplicitfloat, naked, alignstack,
+    module, asm, align, tail, to,
+    addrspace, section, alias, sideeffect, c, gc,
+    target, datalayout, triple,
+    blockaddress
+  },
+  classoffset=1, keywordstyle=\color{purple},
+  morekeywords={
+    add, fadd, sub, fsub, mul, fmul,
+    sdiv, udiv, fdiv, srem, urem, frem,
+    and, or, xor,
+    icmp, fcmp,
+    eq, ne, ugt, uge, ult, ule, sgt, sge, slt, sle,
+    oeq, ogt, oge, olt, ole, one, ord, ueq, ugt, uge,
+    ult, ule, une, uno,
+    nuw, nsw, exact, inbounds,
+    phi, call, select, shl, lshr, ashr, va_arg,
+    trunc, zext, sext,
+    fptrunc, fpext, fptoui, fptosi, uitofp, sitofp,
+    ptrtoint, inttoptr, bitcast,
+    ret, br, indirectbr, switch, invoke, unwind, unreachable,
+    malloc, alloca, free, load, store, getelementptr,
+    extractelement, insertelement, shufflevector,
+    extractvalue, insertvalue,
+  },
+  alsoletter={\%},
+  keywordsprefix={\%},
+}
+
 \lstdefinelanguage
    [x64]{Assembler}     % add a "x64" dialect of Assembler
    [x86masm]{Assembler} % based on the "x86masm" dialect
@@ -23,7 +71,8 @@
    {morekeywords={CDQE,CQO,CMPSQ,CMPXCHG16B,JRCXZ,LODSQ,MOVSXD, %
                   POPFQ,PUSHFQ,SCASQ,STOSQ,IRETQ,RDTSCP,SWAPGS, %
                   rax,rdx,rcx,rbx,rsi,rdi,rsp,rbp, %
-                  r8,r8d,r8w,r8b,r9,r9d,r9w,r9b},
+                  r8,r8d,r8w,r8b,r9,r9d,r9w,r9b,
+                  dword},
     deletekeywords={code}} % etc.
 
 

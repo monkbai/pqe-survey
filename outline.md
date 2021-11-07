@@ -22,7 +22,8 @@ Chapter 4. Existing Solutions
     2. lifter
         2.1. mcsema/retdec, emulation-style/succinct style
         2.2. dynamic lifter
-        2.3. lifter verification
+        2.3. variables and type recovery
+        2.4. lifter verification
     3. decompilation
         3.1. variable/type/data structure recovery: TODO
         3.2. function signature recovery: TODO
