@@ -1,8 +1,108 @@
 \chapter{Background}\label{sec-background}
 
-Here should be the background.
+Before the literature review of the existing research efforts, we first present
+the preliminary knowledge of software reverse engineering, including the
+domain-specific concepts and notations. In 1990, the definition of software
+reverse engineering (SRE) is proposed by Institute of Electrical and
+Electronics Engineers (IEEE) as ``the process of analyzing a subject system to
+identify the system's components and their interrelationships and to create
+representations of the system in another form or at a higher level of
+abstraction" in which the ``subject system" is the end product of software
+development~\cite{ieee-sre}.
+For the last decades, as the basis of lots of security-critical tasks, software
+reverse engineering techniques have been continuously explored and developed by
+reverse engineers and researchers. Nowadays, modern software reverse
+engineering has formed a three-component pipeline that consists of disassembly,
+lifting, and decompilation.
+
+
+\section{Workflow} \label{sec:background-workflow}
+We demonstrate the workflow of modern software reverse engineering in
+\F~\ref{fig:workflow}. A complete software reverse engineering process starts
+with a binary executable without available source code. First, the disassembler
+will parse and disassemble the binary file into assembly code with function
+boundaries recovered at the disassembly stage. Next, the disassembled assembly
+code, as the input of the lifter, will be lifted to (customized) IR with
+variables and types recovered depending on the characteristics of IR. Lastly,
+at the decompilation stage, the program control flow will be recovered and
+optimized in order to be translated into the pseudo-high-level programming
+language. With some advanced techniques, the output of the disassembler even
+could be symbolized to be able to reassemble into a functional binary
+executable. In this case, the assembly or IR can also be used to support
+downstream applications without further processing.
+
+\section{Concepts} \label{sec:background-concepts}
+In this section we detail the concepts and basics of common components in the
+software reverse engineering process.
+
+\subsection{Disassembly} \label{sec:background-disassembly}
+
+Machine code is bytes that are read and executed by a machine. While machine
+code is unreadable by humans, disassembly converts machine code into a
+human-understandable form by converting machine code represented as a sequence
+of hexadecimal values into assembly language represented visible characters.
+For instance, each unique hexadecimal sequence on the left corresponds to one
+and only one assembly instruction, in this case, disassembly is simply about
+mapping the sequence on the left to the assembly code on the right:
+
+\vspace*{3pt}
+\noindent\hspace*{36pt}\begin{minipage}{.40\linewidth}
+\begin{lstlisting}
+ ; machine code
+ 0x55
+ 0x89 0xe5
+ 0x53
+ 0x83 0xec 0x74
+\end{lstlisting}
+\end{minipage}\hspace*{24pt}
+\begin{minipage}{.40\linewidth}
+\begin{lstlisting}
+ ; disassembly code
+ push ebp
+ mov  ebp, esp
+ push ebx
+ sub  esp, 74h
+\end{lstlisting}
+\end{minipage}
+
+Conceptually, disassembly is the process of translating machine language into
+assembly language, it is the inverse process of
+assembly~\cite{schwarz2002disassembly,wang2015reassembleable,bauman2018superset}.
+The tool conduct disassembly is called a disassembler, whose output is often
+formatted for human readability rather than suitability for input to an
+assembler.
+
+In the process of software reverse engineering, input executables will first be
+fed into the disassembler, while the machine code is translated into assembly
+instructions, the data sections within each executable will also be identified
+for further usage. Existing research on disassembly has been shown to work
+very well in practice and the proposed methods can smoothly disassemble large-
+size binary executables
+~\cite{balakrishnan2010wysinwyx,kruegel2004static,wang2015reassembleable}.
+
+\noindent \textbf{Reassembleable Disassembly.} While traditional disassembly
+aims to readability and expressiveness only, Wang et al. first proposed the
+reassembleable disassembly which aims to produce output that can be
+reassembled back to a functional program~\cite{wang2015reassembleable}. By
+fixing the symbolization problem, reassembleable disassembly can enable lots
+of binary rewriting applications including software security hardening and
+cross-architecture code reuse. More details of the reassembleable disassembly
+technique and related work will be discussed in Section \fixme{XXX}.
+
+\subsection{Lifting} \label{sec:background-lifting}
+
+
+
+\subsection{Decompilation} \label{sec:background-decompilation}
+
+TODO
+
+\section{Application Scenarios} \label{sec:background-applications}
+TODO
+
+\section{Survey Scope} \label{sec:background-scope}
+TODO
 
 \noindent\rule{8cm}{0.4pt}
-
 
 \newpage
