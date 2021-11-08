@@ -7,7 +7,7 @@ reverse engineering (SRE) is proposed by Institute of Electrical and
 Electronics Engineers (IEEE) as ``the process of analyzing a subject system to
 identify the system's components and their interrelationships and to create
 representations of the system in another form or at a higher level of
-abstraction" in which the ``subject system" is the end product of software
+abstraction'' in which the ``subject system'' is the end product of software
 development~\cite{ieee-sre}.
 For the last decades, as the basis of lots of security-critical tasks, software
 reverse engineering techniques have been continuously explored and developed by
@@ -91,9 +91,19 @@ technique and related work will be discussed in Section \fixme{XXX}.
 
 \subsection{Lifting} \label{sec:background-lifting}
 
-With a variety of available IRs, LLVM IR, as a \textit{strong-typed} IR defined for LLVM compiler framework, is used by most reverse engineering tools. With the support of many LLVM analysis and optimization passes, LLVM IR can directly bridge reverse engineering tool development and compiler framework, avoid reimplementing the wheels by reusing existing LLVM passes, and show great potential and research value. Therefore, we focus on LLVM IR (hereinafter referred to as IR) and related lifting techniques in this survey.
+With a variety of available IRs, LLVM IR, as a \textit{strong-typed} IR
+defined for LLVM compiler framework, is used by most reverse engineering
+tools. With the support of many LLVM analysis and optimization passes, LLVM IR
+can directly bridge reverse engineering tool development and compiler
+framework, avoid reimplementing the wheels by reusing existing LLVM passes,
+and show great potential and research value. Therefore, we focus on LLVM IR
+(hereinafter referred to as IR) and related lifting techniques in this survey.
 
-The assembly code output by the disassembler will be fed to the lifter as input. The key procedure of lifting is translating each assembly instruction to a sequence of semantic-equivalent IR statements:
+The assembly code output by the disassembler will be fed to the lifter as
+input. The machine-specific detail is discarded during lifting, leading to a
+more refined platform-independent representation of the program (IR). The key
+procedure of lifting is translating each assembly instruction to a sequence of
+semantic-equivalent IR statements:
 
 \vspace*{3pt}
 \noindent\hspace*{36pt}\begin{minipage}{.40\linewidth}
@@ -112,21 +122,147 @@ The assembly code output by the disassembler will be fed to the lifter as input.
 \end{lstlisting}
 \end{minipage}
 
-The lifted IR statements would faithfully emulate machine execution, including CPU register-level computations, memory updates, and other side effects. A sequence of IR statements, corresponding to one machine instruction, will be usually represented as a \textit{translation rule} and hardcoded in lifters. Hence, each machine instruction will be mapped to a translation rule and translated into an IR sequence.
+The lifted IR statements would faithfully emulate machine execution, including
+CPU register-level computations, memory updates, and other side effects. A
+sequence of IR statements, corresponding to one machine instruction, will be
+usually represented as a \textit{translation rule} and hardcoded in lifters.
+Hence, each machine instruction will be mapped to a translation rule and
+translated into an IR sequence.
 
-\noindent \textbf{Emulation-style vs. Succinct-style.} The LLVM IR is a strong-typed IR, which means all variables and their types are explicitly defined in LLVM IR and branches are dependent on predicate variables decidedly. Therefore, given the lifted IR code, the central focus is to recover variables, types, and high-level program control flows from low-level IR code. To recover program variables, some tools already proposed and implemented needed static analysis and inference techniques~\cite{anand2013compiler,balakrishnan2010wysinwyx,balakrishnan2007divine,reps2008improved,elwazeer2013scalable}. To recover variable types, constraint-based type inference systems are typically formulated~\cite{lee2011tie,noonan2016polymorphic}. However, recovering variables and types from stripped binary is challenging and existing methods are either inefficient or inaccurate enough (we will detail the challenges and existing method at Section \fixme{XXX} and Section \fixme{XXX}).
+\noindent \textbf{Emulation-style vs. Succinct-style.} The LLVM IR is a
+strong-typed IR, which means all variables and their types are explicitly
+defined in LLVM IR and branches are dependent on predicate variables
+decidedly. Therefore, given the lifted IR code, the central focus is to
+recover variables, types, and high-level program control flows from low-level
+IR code. To recover program variables, some tools already proposed and
+implemented needed static analysis and inference
+techniques~\cite{anand2013compiler,balakrishnan2010wysinwyx,balakrishnan2007divine,reps2008improved,elwazeer2013scalable}.
+To recover variable types, constraint-based type inference systems are
+typically formulated~\cite{lee2011tie,noonan2016polymorphic}. However,
+recovering variables and types from stripped binary is challenging and
+existing methods are either inefficient or inaccurate enough (we will detail
+the challenges and existing method at Section \fixme{XXX} and Section \fixme{XXX}).
 
-To avoid facing type and variable recovery challenges directly, lifter developers have made compromises by trying to recover variables and types but do not guarantee the correctness, which is denoted as \textit{succinct-style}, or trying to emulate the assembly instruction at hardware level thus ensuring correctness at the cost of efficiency, which is denoted as \textit{emulation-style}. We will compare the two lifting styles in detail in Section \fixme{XXX}.
+To avoid facing type and variable recovery challenges directly, lifter
+developers have made compromises by trying to recover variables and types but
+do not guarantee the correctness, which is denoted as \textit{succinct-style},
+or trying to emulate the assembly instruction at hardware level thus ensuring
+correctness at the cost of efficiency, which is denoted as \textit{emulation-style}.
+We will compare the two lifting styles in detail in Section \fixme{XXX}.
 
 \subsection{Decompilation} \label{sec:background-decompilation}
 
-TODO
+\begin{quote}
+\textit{``... machine-specific detail is discarded, leading to the essence of
+the program (source code), from which it is possible to divine a deeper truth
+(understanding of the program).''}~\cite{van2007static}
+\end{quote}
 
-\section{Application Scenarios} \label{sec:background-applications}
-TODO
+Although IR is already understandable, the IR is designed with only limited
+and straightforward kinds of basic operations (load, store, arithmetic
+operations, etc.) for better analysis and optimizing friendliness. Limiting
+operations to a few simple and basic ones allow the compiler developer to
+dispense with complex operations considerations in an optimization strategy.
+However, overly simple instructions make it difficult for analysts to
+summarize and understand the higher-level intent of the program. Thus
+decompilation technique is used to further extract the essence of a program by
+converting it into a more advanced programming language-like
+form~\cite{van2007static,fokin2010reconstruction,engel2011enhanced,brumley2013native}.
+
+While the high-level data-flow information, including variables and types, is
+recovered at the lifting stage, the control flow information in IR still
+retains a simple assembly-like structure:
+
+\vspace*{3pt}
+\noindent\hspace*{36pt}\begin{minipage}{.40\linewidth}
+\begin{lstlisting}
+ ; branch in assembly
+  cmp	 [rbp - 12], 5
+  jge	 label
+\end{lstlisting}
+\end{minipage}\hspace*{24pt}
+\begin{minipage}{.40\linewidth}
+\begin{lstlisting}[language=llvm]
+ ; branch in LLVM IR
+  %2 = icmp slt i32 %1, 5
+  br i1 %2, label %3, label %4
+\end{lstlisting}
+\end{minipage}
+
+To recover high-level control flow structures, modern decompilers implement a
+set of structure templates and search to determine whether an IR code region
+matches the predefined patterns:
+
+\vspace*{3pt}
+\noindent\hspace*{36pt}\begin{minipage}{.40\linewidth}
+\begin{lstlisting}[language=llvm]
+ ; LLVM IR
+  ...
+  br label %4
+4:
+  ...
+  %6 = icmp slt i32 %5, 5
+  br i1 %6, label %7, label %13
+7:
+  ...
+  br label %4
+13:
+  ...
+  ret i32 0
+\end{lstlisting}
+\end{minipage}\hspace*{24pt}
+\begin{minipage}{.40\linewidth}
+\begin{lstlisting}[language=C]
+ ; decompiled code
+  while (x < 5) {
+    ...
+  }
+  ...
+  return 0;
+\end{lstlisting}
+\end{minipage}
+
+Some advanced techniques enable an iterative refinement to polish the
+recovered structure. To date, techniques have been designed to guarantee the
+structure recovery correctness and also to improve
+readability~\cite{brumley2013native,yakdan2015no}. In addition, modern
+decompilers usually design optimizations to polish the lifted IR code,
+including dead code elimination and untiling~\cite{brumley2013native,cifuentes1994reverse,kvroustek2017retdec}.
+Also, reverse engineering of C executable files might encounter ``chicken and
+egg'' problems (e.g., data flow analysis relies on the precise output of
+control flow analysis, and vice versa). Indeed, analysis and optimization
+modules can be invoked back and forth for iterations; the output of one module
+is used to promote the analysis of other modules~\cite{kvroustek2017retdec}.
+
+% \section{Application Scenarios} \label{sec:background-applications}
+% TODO
 
 \section{Survey Scope} \label{sec:background-scope}
-TODO
+In this survey, we focus on the challenges of software reverse engineering and
+existing methods. Since software reverse engineering has been studied for over
+decades, voluminous studies on various problems in reverse engineering have
+been published in many domains.
+To make this survey intuitive and concise, we focus on landmark solutions to
+various problems in the field of software reverse engineering and recent
+research published in top-tier conference and journal of the following areas:
+
+\begin{itemize}
+  \item \textbf{Security}: IEEE Symposium on Security and Privacy(S\&P),
+  USENIX Security Symposium, ACM Conference on Computer and Communications
+  Security (CCS), The Network and Distributed System Security Symposium (NDSS)
+  \item \textbf{Programming Language}: ACM SIGPLAN Conference on Programming
+  Language Design And Implementation (PLDI), Conference on Object-Oriented
+  Programming Systems, Languages, and Applications (OOPSLA).
+  \item \textbf{System}: ACM International Conference on Architectural Support
+  for Programming Languages and Operating Systems (ASPLOS), USENIX Annul
+  Technical Conference (USENIX ATC), ACM European Conference on Computer
+  Systems (EuroSys).
+  \item \textbf{Software Engineering}: International Conference on Software
+  Engineering (ICSE),ACM Joint European Software Engineering Conference and
+  Symposium on the Foundations of Software Engineering (ESEC/FSE), IEEE/ACM
+  International Conference on Automated Software Engineering (ASE) and The ACM
+  SIGSOFT International Symposium on Software Testing and Analysis (ISSTA).
+\end{itemize}
 
 \noindent\rule{8cm}{0.4pt}
 
