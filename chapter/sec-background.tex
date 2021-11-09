@@ -36,14 +36,19 @@ In this section we detail the concepts and basics of common components in the
 software reverse engineering process.
 
 \subsection{Disassembly} \label{sec:background-disassembly}
-
+Conceptually, disassembly is the process of translating machine code into
+assembly language, it is the inverse process of
+assembly~\cite{schwarz2002disassembly,wang2015reassembleable,bauman2018superset}.
+%The tool conduct disassembly is called a disassembler, whose output is often
+%formatted for human readability rather than suitability for input to an
+%assembler.
 Machine code is bytes that are read and executed by a machine. While machine
 code is unreadable by humans, disassembly converts machine code into a
-human-understandable form by converting machine code represented as a sequence
-of hexadecimal values into assembly language represented as visible characters.
+human-understandable form by converting hexadecimal values into assembly
+language represented as visible characters.
 For instance, each unique hexadecimal sequence on the left corresponds to one
 and only one assembly instruction, in this case, disassembly is simply about
-mapping the sequence on the left to the assembly code on the right:
+mapping the sequence to the assembly code:
 
 \vspace*{3pt}
 \noindent\hspace*{36pt}\begin{minipage}{.40\linewidth}
@@ -65,20 +70,22 @@ mapping the sequence on the left to the assembly code on the right:
 \end{lstlisting}
 \end{minipage}
 
-Conceptually, disassembly is the process of translating machine language into
-assembly language, it is the inverse process of
-assembly~\cite{schwarz2002disassembly,wang2015reassembleable,bauman2018superset}.
-The tool conduct disassembly is called a disassembler, whose output is often
-formatted for human readability rather than suitability for input to an
-assembler.
-
-In the process of software reverse engineering, input executables will first be
-fed into the disassembler, while the machine code is translated into assembly
-instructions, the data sections within each executable will also be identified
-for further usage. Existing research on disassembly has been shown to work
-very well in practice and the proposed methods can smoothly disassemble large-
-size binary executables
-~\cite{balakrishnan2010wysinwyx,kruegel2004static,wang2015reassembleable}.
+\noindent \textbf{Linear and Recursive Disassembly.} While translating a
+hexadecimal value sequence into an assembly instruction is straightforward,
+the problem is where to find the hex values to translate. Classical static
+disassembly techniques can be summarized as two methods. The first method,
+named \textit{linear disassembly}, translates the hex values to assembly
+instruction sequentially from the start of the text segment. However, in
+modern compilers, data and code may be interleaved for optimization reasons.
+Thus the second method, named \textit{recursive disassembly}, is leveraged to
+circumvent the interleaving problem. Recursive disassembly will translate
+instructions following the control flow of the program, so no data will be
+misinterpreted as code. Nonetheless, statically recovering control flow from
+binary is generally hard when indirect jumps exist (e.g., \textit{call eax})
+~\cite{shoshitaishvili2016sok}.
+Thus in practice, this problem is usually solved by combining linear and
+recursive disassembly as \textit{speculative disassembly}
+~\cite{cifuentes2000uqbt}.
 
 \noindent \textbf{Reassembleable Disassembly.} While traditional disassembly
 aims to readability and expressiveness only, Wang et al. first proposed the
@@ -88,6 +95,14 @@ fixing the symbolization problem, reassembleable disassembly can enable lots
 of binary rewriting applications including software security hardening and
 cross-architecture code reuse. More details of the reassembleable disassembly
 technique and related work will be discussed in Section \fixme{XXX}.
+
+In the process of software reverse engineering, input executables will first be
+fed into the disassembler, while the machine code is translated into assembly
+instructions, the data sections within each executable will also be identified
+for further usage. Existing research on disassembly has been shown to work
+very well in practice and the proposed methods can smoothly disassemble
+large-size binary executables
+~\cite{balakrishnan2010wysinwyx,kruegel2004static,wang2015reassembleable}.
 
 \subsection{Lifting} \label{sec:background-lifting}
 
@@ -264,6 +279,5 @@ research published in top-tier conference and journal of the following areas:
   SIGSOFT International Symposium on Software Testing and Analysis (ISSTA).
 \end{itemize}
 
-\noindent\rule{8cm}{0.4pt}
 
 \newpage
