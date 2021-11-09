@@ -35,7 +35,7 @@ downstream applications without further processing.
 In this section we detail the concepts and basics of common components in the
 software reverse engineering process.
 
-\subsection{Disassembly} \label{sec:background-disassembly}
+\subsection{Disassembly} \label{subsec:background-disassembly}
 Conceptually, disassembly is the process of translating machine code into
 assembly language, it is the inverse process of
 assembly~\cite{schwarz2002disassembly,wang2015reassembleable,bauman2018superset}.
@@ -104,7 +104,7 @@ very well in practice and the proposed methods can smoothly disassemble
 large-size binary executables
 ~\cite{balakrishnan2010wysinwyx,kruegel2004static,wang2015reassembleable}.
 
-\subsection{Lifting} \label{sec:background-lifting}
+\subsection{Lifting} \label{subsec:background-lifting}
 
 With a variety of available IRs, LLVM IR, as a \textit{strong-typed} IR
 defined for LLVM compiler framework, is used by most reverse engineering
@@ -165,7 +165,7 @@ or trying to emulate the assembly instruction at hardware level thus ensuring
 correctness at the cost of efficiency, which is denoted as \textit{emulation-style}.
 We will compare the two lifting styles in detail in Section \fixme{XXX}.
 
-\subsection{Decompilation} \label{sec:background-decompilation}
+\subsection{Decompilation} \label{subsec:background-decompilation}
 
 \begin{quote}
 \textit{``... machine-specific detail is discarded, leading to the essence of
