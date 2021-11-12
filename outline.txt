@@ -19,7 +19,7 @@ Chapter 4. Existing Solutions
         1.1. superset disassembly/probabilistic disassembly, datalog disassembly
         1.2. reassembleable disassembling
         1.3. ramblr, retrowrite, egaltio
-        1.4. stochfuzz
+        1.4. stochfuzz, e9patch
     2. lifter
         SecondWrite
         2.1. mcsema/retdec, emulation-style/succinct style
@@ -31,11 +31,11 @@ Chapter 4. Existing Solutions
     3. decompilation
         3.1. Native x86 Decompilation
         3.2. No More Gotos
-        
+
 Chapter 5. Advanced Decompilation
     1. smart contract?
         TODO
-    2. decompilation/disassembly with deep leaning
+    2. disassembly on other platforms, other languages
         TODO
     what else?
 
