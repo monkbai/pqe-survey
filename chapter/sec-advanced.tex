@@ -6,7 +6,7 @@ Smart contracts that run on blockchains are compiled to byte code, finally being
 
 
 \section{Advanced CFG Recovery}\label{sec:advanced-cfg}
-As we discussed in \S~\ref{sec:challenges-control-flow}, indirect jumps pose a threat to reverse engineering on Object-Oriented Programming (OOP) languages compiled binaries. A precise and scalable binary-level points-to analysis is necessary to solve this problem. While state-of-the-art Value Set Analysis (VSA) is highly conservatives and not scalable, Kim et al. proposed BPA (Binary-level Points-to Analysis)~\cite{kim2021refining} to replace VSA for high-precision CFGs construction. By employing memory block generation, BPA achieves higher accuracy and scalability, which points out the possibility of the OOP languages reverse engineering.
+As we discussed in \S~\ref{sec:challenges-control-flow}, indirect jumps pose a threat to reverse engineering on Object-Oriented Programming (OOP) languages compiled binaries. A precise and scalable binary-level points-to analysis is necessary to solve this problem. While state-of-the-art Value Set Analysis (VSA) is highly conservatives and not scalable, Kim \etal proposed BPA (Binary-level Points-to Analysis)~\cite{kim2021refining} to replace VSA for high-precision CFGs construction. By employing memory block generation, BPA achieves higher accuracy and scalability, which points out the possibility of the OOP languages reverse engineering.
 
 
 \section{Translation Rules Learning} \label{sec:advanced-rules}
@@ -14,7 +14,5 @@ While almost all lifters implicitly or explicitly define translation rules that 
 %
 This approach aims at translating x86 assembly code to arm assembly code, it leverages compiler-generated debug information to find translation rule candidates, then checks the semantic equivalence of candidates through symbolic execution. It is shown that this approach is able to learn tens of thousands of high-quality rules within weeks, which is far more than experts can provide. Although this technique does not involve conversion from assembly to high-level IR, we believe that it points out a possible new direction as automatic learning of translation rules for IR lifting.
 \fixme{Add more if not enough}
-
-\noindent\rule{8cm}{0.4pt}
 
 \newpage
