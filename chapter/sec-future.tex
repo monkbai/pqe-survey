@@ -1,22 +1,61 @@
 \chapter{Our Works and Potential Directions}\label{sec-future}
-Although existing works have been made significant progress for software reverse engineering, there are still some potential research directions could improve reverse engineering capabilities. In this section, we will discuss some of our current works and possible future research directions.
+Although existing works have been made significant progress for software 
+reverse engineering, there are still some potential research directions could 
+improve reverse engineering capabilities. In this section, we will discuss some 
+of our current works and possible future research directions.
 
 \section{Our Works}\label{sec:future-our}
 \noindent\textbf{Decompiler Testing.}~
-With over twenty years of development, C decompilers have been widely used in production to support reverse engineering applications. In contrast to this flourishing market, our observation is that in academia, outputs of C decompilers (i.e., recovered C source code) are still not extensively used. We acknowledge that such conservative approaches in academia are a result of widespread and pessimistic views on decompilation correctness. To present an up-to-date understanding regarding modern C decompilers, we test decompilation correctness with the EMI mutation method. Our findings show that state-of-the-art decompilers certainly care about functional correctness, and they are making promising progress. However, some tasks that have been studied for years in academia, such as type inference and optimization, still impede C decompilers from generating quality outputs.
+With over twenty years of development, C decompilers have been widely used in 
+production to support reverse engineering applications. In contrast to this 
+flourishing market, our observation is that in academia, outputs of C 
+decompilers (i.e., recovered C source code) are still not extensively used. We 
+acknowledge that such conservative approaches in academia are a result of 
+widespread and pessimistic views on decompilation correctness. To present an 
+up-to-date understanding regarding modern C decompilers, we test decompilation 
+correctness with the EMI mutation method. Our findings show that 
+state-of-the-art decompilers certainly care about functional correctness, and 
+they are making promising progress. However, some tasks that have been studied 
+for years in academia, such as type inference and optimization, still impede C 
+decompilers from generating quality outputs.
 
 \noindent\textbf{Lifter Benchmarking.}~
-Existing research has reported highly promising results that suggest binary lifters can generate LLVM IR code with correct functionality~\cite{elwazeer2013scalable}.
-Beyond that, we conduct an in-depth study of binary lifters from an orthogonal and highly demanding perspective. We demystify the “expressiveness” of binary lifters and reveal how well the lifted LLVM IR code can support critical downstream applications (pointer analysis, discriminability analysis, and decompilation) in security analysis scenarios.
-Our findings show that modern binary lifters afford IR code that is highly suitable for discriminability analysis and decompilation and suggest that such binary lifters can be applied in common similarity- or code comprehension-based security analysis (e.g., binary diffing). However, the lifted IR code appears unsuited to rigorous static analysis (e.g., pointer analysis).
+Existing research has reported highly promising results that suggest binary 
+lifters can generate LLVM IR code with correct functionality~\cite
+{elwazeer2013scalable}.
+Beyond that, we conduct an in-depth study of binary lifters from an orthogonal 
+and highly demanding perspective. We demystify the “expressiveness” of binary 
+lifters and reveal how well the lifted LLVM IR code can support critical 
+downstream applications (pointer analysis, discriminability analysis, and 
+decompilation) in security analysis scenarios.
+Our findings show that modern binary lifters afford IR code that is highly 
+suitable for discriminability analysis and decompilation and suggest that such 
+binary lifters can be applied in common similarity- or code comprehension-based 
+security analysis (e.g., binary diffing). However, the lifted IR code appears 
+unsuited to rigorous static analysis (e.g., pointer analysis).
 
 
 \section{Possible Future Directions}\label{sec:future-directions}
 \noindent\textbf{Lifted IR Optimization.}~
-We observed that existing lifters follow two distinct designs, the emulation-style lifters produce IR code that is functional, recompilable, but incomprehensible, while the output of succinct-style lifters is relatively analysis friendly but without correctness guarantee. To combine the best of both, we envision that transformation passes provided by the LLVM framework could be applied to optimize emulation-style IR. A large number of semantic-preserving LLVM optimization passes may give us an opportunity to optimize and enrich emulation-style IR expressiveness.
+We observed that existing lifters follow two distinct designs, the 
+emulation-style lifters produce IR code that is functional, recompilable, but 
+incomprehensible, while the output of succinct-style lifters is relatively 
+analysis friendly but without correctness guarantee. To combine the best of 
+both, we envision that transformation passes provided by the LLVM framework 
+could be applied to optimize emulation-style IR. A large number of 
+semantic-preserving LLVM optimization passes may give us an opportunity to 
+optimize and enrich emulation-style IR expressiveness.
 
 \noindent\textbf{Automatic Translation Rules Learning.}~
-As we discussed in \autoref{sec:advanced-rules}, translation rules learning may be a high-potential research direction that would vastly improve existing lifters' performance. However, Translating assembly code to IR is much more complex than dynamic binary instrumentation. Variables and types need to be restored at the same time as translation. With so many related variables and types recovery research, we have to choose one that is compatible with translation rules. Also, as all recovery approaches inevitably have inaccurate results, we need to take fault tolerance into consideration when applying translation rules.
+As we discussed in \autoref{sec:advanced-rules}, translation rules learning may 
+be a high-potential research direction that would vastly improve existing 
+lifters' performance. However, Translating assembly code to IR is much more 
+complex than dynamic binary instrumentation. Variables and types need to be 
+restored at the same time as translation. With so many related variables and 
+types recovery research, we have to choose one that is compatible with 
+translation rules. Also, as all recovery approaches inevitably have inaccurate 
+results, we need to take fault tolerance into consideration when applying 
+translation rules.
 
 
 \newpage

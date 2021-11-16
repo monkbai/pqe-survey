@@ -1,18 +1,56 @@
 \chapter{Advanced Topics}\label{sec-advanced}
-As we have discussed the challenges and existing solutions of traditional software reverse engineering, we further discuss several advanced topics related to reverse engineering in this section.
+As we have discussed the challenges and existing solutions of traditional 
+software reverse engineering, we further discuss several advanced topics 
+related to reverse engineering in this section.
 
 \section{Smart Contract Decompilation}\label{sec:advanced-contract}
-Smart contracts that run on blockchains are compiled to byte code, finally being executed by Ethereum Virtual Machine (EVM). As lots of valuable tokens and cryptocurrencies are transacted by smart contracts, it is necessary to be able to do reverse engineering on smart contracts for further analyses. Gigahorse~\cite{grech2019gigahorse} presents the state-of-the-art EVM reverse engineering toolchain that can decompile smart contracts from bytecode into a high-level 3-address representation. The source level functions will be reconstructed from the 3-address representation for Solidity-like output. This approach follows a similar pipeline as software reverse engineering on C programs, it first disassembles bytecode into EVM opcodes, then lifts opcode into 3-address IR. Dataflow analyses and heuristics are used during this process to recovery CFG and function signatures.  Generally, smart contracts' purpose, functionality, and language features of Solidity are simpler, thus we consider that it is relatively easier to decompile smart contracts compared with decompiling C programs.
+Smart contracts that run on blockchains are compiled to byte code, finally 
+being executed by Ethereum Virtual Machine (EVM). As lots of valuable tokens 
+and cryptocurrencies are transacted by smart contracts, it is necessary to be 
+able to do reverse engineering on smart contracts for further analyses. 
+Gigahorse~\cite{grech2019gigahorse} presents the state-of-the-art EVM reverse 
+engineering toolchain that can decompile smart contracts from bytecode into a 
+high-level 3-address representation. The source level functions will be 
+reconstructed from the 3-address representation for Solidity-like output. This 
+approach follows a similar pipeline as software reverse engineering on C 
+programs, it first disassembles bytecode into EVM opcodes, then lifts opcode 
+into 3-address IR. Dataflow analyses and heuristics are used during this 
+process to recovery CFG and function signatures.  Generally, smart contracts' 
+purpose, functionality, and language features of Solidity are simpler, thus we 
+consider that it is relatively easier to decompile smart contracts compared 
+with decompiling C programs.
 
 
 \section{Advanced CFG Recovery}\label{sec:advanced-cfg}
-As we discussed in \S~\ref{sec:challenges-control-flow}, indirect jumps pose a threat to reverse engineering on Object-Oriented Programming (OOP) languages compiled binaries. A precise and scalable binary-level points-to analysis is necessary to solve this problem. While state-of-the-art Value Set Analysis (VSA) is highly conservatives and not scalable, Kim \etal proposed BPA (Binary-level Points-to Analysis)~\cite{kim2021refining} to replace VSA for high-precision CFGs construction. By employing memory block generation, BPA achieves higher accuracy and scalability, which points out the possibility of the OOP languages reverse engineering.
+As we discussed in \S~\ref{sec:challenges-control-flow}, indirect jumps pose a 
+threat to reverse engineering on Object-Oriented Programming (OOP) languages 
+compiled binaries. A precise and scalable binary-level points-to analysis is 
+necessary to solve this problem. While state-of-the-art Value Set Analysis 
+(VSA) is highly conservatives and not scalable, Kim \etal proposed BPA 
+(Binary-level Points-to Analysis)~\cite{kim2021refining} to replace VSA for 
+high-precision CFGs construction. By employing memory block generation, BPA 
+achieves higher accuracy and scalability, which points out the possibility of 
+the OOP languages reverse engineering.
 
 
 \section{Translation Rules Learning} \label{sec:advanced-rules}
-While almost all lifters implicitly or explicitly define translation rules that translate assembly code to IR, such translation rules are challenging to write in the sense that the developers have to be experts in both assembly language and IR. Although currently, there is no automatic method to generate translation rules without export knowledge, Wang et al.~\cite{wang2018enhancing,song2019unleashing} proposed an interesting idea to automatically learn semantic-equivalent translation rules for dynamic binary translation (DBT) system.
+While almost all lifters implicitly or explicitly define translation rules that 
+translate assembly code to IR, such translation rules are challenging to write 
+in the sense that the developers have to be experts in both assembly language 
+and IR. Although currently, there is no automatic method to generate 
+translation rules without export knowledge, Wang et al.~\cite{wang2018enhancing,
+song2019unleashing} proposed an interesting idea to automatically learn 
+semantic-equivalent translation rules for dynamic binary translation (DBT) 
+system.
 %
-This approach aims at translating x86 assembly code to arm assembly code, it leverages compiler-generated debug information to find translation rule candidates, then checks the semantic equivalence of candidates through symbolic execution. It is shown that this approach is able to learn tens of thousands of high-quality rules within weeks, which is far more than experts can provide. Although this technique does not involve conversion from assembly to high-level IR, we believe that it points out a possible new direction as automatic learning of translation rules for IR lifting.
+This approach aims at translating x86 assembly code to arm assembly code, it 
+leverages compiler-generated debug information to find translation rule 
+candidates, then checks the semantic equivalence of candidates through symbolic 
+execution. It is shown that this approach is able to learn tens of thousands of 
+high-quality rules within weeks, which is far more than experts can provide. 
+Although this technique does not involve conversion from assembly to high-level 
+IR, we believe that it points out a possible new direction as automatic 
+learning of translation rules for IR lifting.
 
 % \fixme{Add more if not enough}
 
