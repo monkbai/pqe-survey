@@ -13,6 +13,7 @@ As we discussed in \S~\ref{sec:challenges-control-flow}, indirect jumps pose a t
 While almost all lifters implicitly or explicitly define translation rules that translate assembly code to IR, such translation rules are challenging to write in the sense that the developers have to be experts in both assembly language and IR. Although currently, there is no automatic method to generate translation rules without export knowledge, Wang et al.~\cite{wang2018enhancing,song2019unleashing} proposed an interesting idea to automatically learn semantic-equivalent translation rules for dynamic binary translation (DBT) system.
 %
 This approach aims at translating x86 assembly code to arm assembly code, it leverages compiler-generated debug information to find translation rule candidates, then checks the semantic equivalence of candidates through symbolic execution. It is shown that this approach is able to learn tens of thousands of high-quality rules within weeks, which is far more than experts can provide. Although this technique does not involve conversion from assembly to high-level IR, we believe that it points out a possible new direction as automatic learning of translation rules for IR lifting.
-\fixme{Add more if not enough}
+
+% \fixme{Add more if not enough}
 
 \newpage

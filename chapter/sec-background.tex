@@ -94,7 +94,7 @@ reassembled back to a functional program~\cite{wang2015reassembleable}. By
 fixing the symbolization problem, reassembleable disassembly can enable lots
 of binary rewriting applications including software security hardening and
 cross-architecture code reuse. More details of the reassembleable disassembly
-technique and related work will be discussed in Section \fixme{XXX}.
+technique and related work will be discussed in \S~\ref{sec:existing-symbolization}.
 
 In the process of software reverse engineering, input executables will first be
 fed into the disassembler, while the machine code is translated into assembly
@@ -156,14 +156,14 @@ To recover variable types, constraint-based type inference systems are
 typically formulated~\cite{lee2011tie,noonan2016polymorphic}. However,
 recovering variables and types from stripped binary is challenging and
 existing methods are either inefficient or inaccurate enough (we will detail
-the challenges and existing method at \S~\ref{sec:challenges-types} and Section \fixme{XXX}).
+the challenges and existing method at \S~\ref{sec:challenges-types} and \S~\ref{sec:existing-recovery}).
 
 To avoid facing type and variable recovery challenges directly, lifter
 developers have made compromises by trying to recover variables and types but
 do not guarantee the correctness, which is denoted as \textit{succinct-style},
 or trying to emulate the assembly instruction at hardware level thus ensuring
 correctness at the cost of efficiency, which is denoted as \textit{emulation-style}.
-We will compare the two lifting styles in detail in Section \fixme{XXX}.
+We will compare the two lifting styles in detail in \S~\ref{sec:existing-llvm-lifting}.
 
 \subsection{Decompilation} \label{subsec:background-decompilation}
 
