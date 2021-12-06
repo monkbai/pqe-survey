@@ -137,6 +137,27 @@ semantic-equivalent IR statements:
 \end{lstlisting}
 \end{minipage}
 
+% \vspace*{3pt}
+% \noindent\hspace*{36pt}\begin{minipage}{.40\linewidth}
+% \begin{lstlisting}
+%  ; assembly code
+%  mov     [rbp+var_8], 0
+%  mov     edi, [rbp+var_8]
+%  call    foo
+%  mov     [rbp+var_8], eax
+% \end{lstlisting}
+% \end{minipage}\hspace*{24pt}
+% \begin{minipage}{.40\linewidth}
+% \begin{lstlisting}[language=llvm]
+%  ; lifted IR
+%  %a = alloca i32
+%  store i32 0, i32* %a
+%  %1 = load i32, i32* %a
+%  %call = call i32 foo(i32 %1)
+%  store i32 %call, i32* %a
+% \end{lstlisting}
+% \end{minipage}
+
 The lifted IR statements would faithfully emulate machine execution, including
 CPU register-level computations, memory updates, and other side effects. A
 sequence of IR statements, corresponding to one machine instruction, will be

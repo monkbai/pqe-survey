@@ -34,6 +34,22 @@ binary lifters can be applied in common similarity- or code comprehension-based
 security analysis (e.g., binary diffing). However, the lifted IR code appears 
 unsuited to rigorous static analysis (e.g., pointer analysis).
 
+\noindent\textbf{DNN Decompiler.}~
+Due to their widespread use on heterogeneous hardware devices, deep learning 
+(DL) models are compiled into executables by DL compilers to leverage low-level 
+hardware primitives fully. This approach allows DL computations to be 
+undertaken at a low cost across various computing platforms, including CPUs, 
+GPUs, and various hardware accelerators.
+We developed a decompiler for deep neural network (DNN) executables named BTD 
+(Binary To DNN). BTD takes DNN executables and outputs full model 
+specifications, including types of DNN operators, network topology, dimensions, 
+and parameters that are (nearly) identical to those of the input models. BTD 
+delivers an automated framework to process DNN executables compiled by 
+different DL compilers and with full optimizations enabled on x86 platforms. It 
+employs learning-based techniques to infer DNN operators, dynamic analysis to 
+reveal network architectures, and symbolic execution to facilitate inferring 
+dimensions and parameters of DNN operators. 
+
 
 \section{Possible Future Directions}\label{sec:future-directions}
 \noindent\textbf{Lifted IR Optimization.}~
